@@ -5,13 +5,13 @@
 replicaCount: 2
 
 image:
-  githubID: deepakkr35
-  repository: demo-java-app
+  githubID: iTiMaX
+  repository: devops-prj-td
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 
 
-appName: demo-java-app
+appName: devops-prj-td
 
 namespace: app
 
@@ -48,7 +48,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
 
 ingress:

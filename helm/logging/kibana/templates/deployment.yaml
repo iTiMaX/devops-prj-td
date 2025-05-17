@@ -17,24 +17,26 @@ spec:
         node.type: kibana-node
     spec:
       containers:
-        - env:
+        - name: kibana
+          env:
             - name: ELASTICSEARCH_HOSTS
               value: http://es-master-service:9200
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           readinessProbe:
             exec:
               command:
-              - curl
-              - localhost:5601/api/status
-            initialDelaySeconds: 30
+                - curl
+                - localhost:5601/api/status
+            initialDelaySeconds: 90
             periodSeconds: 10
           livenessProbe:
             exec:
               command:
-              - curl
-              - localhost:5601/api/status
-            initialDelaySeconds: 30
+                - curl
+                - localhost:5601/api/status
+            initialDelaySeconds: 90
             periodSeconds: 10
-          name: kibana
           ports:
             - containerPort: 5601
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

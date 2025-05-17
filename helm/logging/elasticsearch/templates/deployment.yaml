@@ -21,20 +21,22 @@ spec:
             - name: discovery.type
               value: single-node
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          readinessProbe:
-            exec:
-              command:
-              - curl
-              - localhost:9200/_cluster/health
-            initialDelaySeconds: 30
-            periodSeconds: 10
           livenessProbe:
-            exec:
-              command:
-              - curl
-              - localhost:9200/_cluster/health
-            initialDelaySeconds: 30
+            httpGet:
+              path: /
+              port: 9200
+            initialDelaySeconds: 120
             periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9200
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            failureThreshold: 3
           ports:
             - containerPort: 9200
             - containerPort: 9300
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
