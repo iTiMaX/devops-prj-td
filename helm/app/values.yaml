@@ -5,13 +5,13 @@
 replicaCount: 2
 
 image:
-  githubID: iTiMaX
-  repository: devops-prj-td
+  githubID: td94100
+  repository: prj-td-java-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: latest
+  tag: V1.0
 
-appName: devops-prj-td
+appName: prj-td-java-app
 
 namespace: app
 
